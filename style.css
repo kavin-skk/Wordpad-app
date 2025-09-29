@@ -348,7 +348,7 @@ body { margin: 0; background: #e9eef6; color: #111; }
 body.dark-mode {
   --bg-color: #070101;
   --text-color: #111010;
-  --ribbon-bg: #140909;
+  --ribbon-bg: #110808;
   --button-bg: #ebe9f0;
   --button-text: #fa0f0f;
 }
