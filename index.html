@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Word</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="ribbon">
+    <div class="ribbon-header">
+      <div class="logo-container">
+        <span class="logo-icon">📝</span>
+        <span class="logo-text">Words</span>
+      </div>
+      <div class="user-controls">
+        <button class="icon-btn profile-btn" title="Account Profile">🧑</button>
+        <button id="themeToggle">🌙</button>
+
+      </div>
+    </div>
+    <div class="ribbon-tabs">
+      <button class="ribbon-tab active" data-tab="file">File</button>
+      <button class="ribbon-tab" data-tab="home">Home</button>
+      <button class="ribbon-tab" data-tab="insert">Insert</button>
+      <button class="ribbon-tab" data-tab="layout">Layout</button>
+      <span id="autosaveStatus" class="autosave-status">Saved</span>
+      <!-- replace -->
+      <div id="findReplaceContainer">
+         <input type="text" id="findText" placeholder="Find...">
+         <input type="text" id="replaceText" placeholder="Replace with...">
+         <button id="replaceAllBtn">Replace All</button>
+      </div>
+    </div>
+    <div class="ribbon-content">
+      <!-- File Pane -->
+      <div class="ribbon-pane" id="pane-file">
+        <div class="group">
+          <button class="btn" id="btnNew" title="New Document">🗋 New</button>
+          <div id="newDocModal" class="modal hidden">
+          <div class="modal-content">
+              <p>Create new document? Unsaved changes will be lost.</p>
+              <button id="confirmNewDoc">Yes</button>
+              <button id="cancelNewDoc">Cancel</button>
+          </div>
+        </div>
+
+          <button class="btn" id="btnOpen" title="Open File">📂 Open</button>
+          <input type="file" id="openFileInput" accept=".html,.doc" hidden>
+          <button class="btn" id="btnSaveHTML" title="Save as HTML">💾 Save HTML</button>
+          <button class="btn" id="btnSaveDoc" title="Save as .doc">📄 Save .doc</button>
+          <button class="btn" id="btnPrint" title="Print or Save as PDF">🖨️ Print/PDF</button>
+        </div>
+        <div class="group">
+          <button class="btn" id="btnShareLink" title="Copy Shareable Link">🔗 Copy Link</button>
+          <button class="btn" id="btnShareDownload" title="Download Copy">⬇️ Download</button>
+        </div>
+        <div class="group">
+          <button class="btn" id="btnExportPDF" title="Export as PDF">📑 Export PDF</button>
+          <button class="btn" id="btnExportODT" title="Export as ODT">📘 Export ODT</button>
+          <button class="btn" id="btnToggleAutosave" title="Toggle AutoSave">AutoSave: ON</button>
+        </div>
+        <div class="group">
+          <button class="btn" id="btnAddPage" title="Add New Page">➕ Add Page</button>
+          <button class="btn" id="btnPageBreak" title="Insert Page Break">↩️ Page Break</button>
+          <button class="btn" id="btnTOC" title="Insert Table of Contents">📑 Table of Contents</button>
+        </div>
+        <div class="group doc-name">
+          <input id="docName" value="Untitled" title="Document Name">
+          <button class="btn" id="btnRename" title="Rename Document">Rename</button>
+        </div>
+      </div>
+      <!-- Home Pane -->
+      <div class="ribbon-pane hidden" id="pane-home">
+        
+        <div class="group" >
+          <select id="fontName" class="select" title="Font Family">
+            <option value="Tahoma">Tahoma</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Courier New">Courier new</option>
+        
+          </select>
+          <select id="fontSize" class="select" title="Font Size">
+            <option>10</option>
+            <option>12</option>
+            <option>14</option>
+            <option>16</option>
+           
+          </select>
+          <input type="color" id="fontColor" title="Font Color">
+          <input type="color" id="highlighter" title="Highlight Color">
+        </div>
+        <div class="group">
+          <button class="btn" data-cmd="bold" title="Bold">B</button>
+          <button class="btn" data-cmd="italic" title="Italic">I</button>
+          <button class="btn" data-cmd="underline" title="Underline">U</button>
+          <button class="btn" data-cmd="strikeThrough" title="Strikethrough">S</button>
+        </div>
+        <div class="group">
+          <button class="btn heading-btn" data-h="H1" title="Heading 1">H1</button>
+          <button class="btn heading-btn" data-h="H2" title="Heading 2">H2</button>
+          <button class="btn heading-btn" data-h="H3" title="Heading 3">H3</button>
+        </div>
+        <div class="group">
+          <button class="btn" data-cmd="justifyLeft" title="Align Left">⬅️</button>
+          <button class="btn" data-cmd="justifyCenter" title="Align Center">↔️</button>
+          <button class="btn" data-cmd="justifyRight" title="Align Right">➡️</button>
+          <button class="btn" data-cmd="insertUnorderedList" title="Bulleted List">• List</button>
+          <button class="btn" data-cmd="insertOrderedList" title="Numbered List">1. List</button>
+        </div>
+        <div class="group">
+          <select id="lineSpacing" class="select" title="Line Spacing">
+            <option>Single</option>
+            <option>1.15</option>
+            <option>1.5</option>
+            <option>Double</option>
+          </select>
+          <input id="wordSpacing" type="number" min="0" max="20" value="0" class="select" title="Word Spacing (px)">
+        </div>
+        <div class="group">
+          <button class="btn" data-cmd="undo" title="Undo">↩️ Undo</button>
+          <button class="btn" data-cmd="redo" title="Redo">↪️ Redo</button>
+        </div>
+      </div>
+      <!-- Insert Pane -->
+      <div class="ribbon-pane hidden" id="pane-insert">
+        <div class="group">
+          <button class="btn" id="btnInsertImage" title="Insert Picture">🖼️ Picture</button>
+          <input type="file" id="imageInput" accept="image/*" hidden>
+        </div>
+        <div class="group">
+          <button class="btn" id="btnTextBox" title="Insert Text Box">✏️ Text Box</button>
+          <button class="btn" id="btnShapeRect" title="Insert Rectangle">⬛ Rectangle</button>
+          <button class="btn" id="btnShapeCircle" title="Insert Circle">⚪ Circle</button>
+          <button class="btn" id="btnShapeLine" title="Insert Line">━ Line</button>
+        </div>
+        <div class="group">
+          <button class="btn" id="btnLink" title="Insert Link">🔗 Link</button>
+            <div class="table-insert-ui">
+    <label>Rows:</label>
+    <input type="number" id="tableRows" min="1" value="2" style="width:50px;">
+    <label>Cols:</label>
+    <input type="number" id="tableCols" min="1" value="2" style="width:50px;">
+    <button id="btnInsertTable" class="btn">📊 Insert Table</button>
+  </div>
+</div>
+        </div>
+      </div>
+      <!-- Layout Pane -->
+      <div class="ribbon-pane hidden" id="pane-layout">
+        <div class="group">
+          <select id="marginPreset" class="select" title="Margin Preset">
+            <option value="20mm">Normal (20mm)</option>
+            <option value="10mm">Narrow (10mm)</option>
+            <option value="30mm">Wide (30mm)</option>
+          </select>
+          <input id="customMargin" type="number" min="0" value="20" class="select" style="width:60px" title="Custom Margin (mm)">
+          <span>mm</span>
+          <button class="btn" id="applyMargin" title="Apply Custom Margin">Apply</button>
+        </div>
+        <div class="group">
+          <button class="btn" id="orientPortrait" title="Portrait Orientation">Portrait</button>
+          <button class="btn" id="orientLandscape" title="Landscape Orientation">Landscape</button>
+        </div>
+        <div class="group">
+          <select id="paperSize" class="select" title="Paper Size">
+            <option>A4</option>
+            <option>Letter</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+
+  <div id="doc-container">
+    <template id="pageTemplate">
+      <div class="page" contenteditable="TRUE">
+        <div class="page-header" contenteditable="true">Header (click to edit)</div>
+        <div class="page-body" contenteditable="true">Start typing here...</div>
+        <div class="page-footer" contenteditable="true">Footer (click to edit)</div>
+      </div>
+    </template>
+    <div class="page-count-container">
+      Pages: <span id="pageCount">1</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
